@@ -1,0 +1,90 @@
+#include <cs50.h>
+#include <string.h>
+#include <stdio.h>
+#include <ctype.h>
+
+bool isAllAlpha(string str);
+bool noSameAlpha(string str);
+void cipher(string key, string text);
+
+int main(int argc, string argv[])
+{
+    if (argc !=2)
+    {
+        printf("Usage: ./substitution key\n");
+        return 1;
+    }
+    else if (!isAllAlpha(argv[1]))
+    {
+        printf("Keys must contain only letters.\n");
+        return 1;
+    }
+    else if (isAllAlpha(argv[1]) && strlen(argv[1]) != 26)
+    {
+        printf("Key must contain 26 characters.\n");
+        return 1;
+    }
+    else if (!noSameAlpha(argv[1]))
+    {
+        printf("Key must not repeat the same characters.\n");
+        return 1;
+    }
+    else
+    {
+        string key = argv[1];
+        string plainText = get_string("plaintext: ");
+        
+        printf("ciphertext: ");
+        cipher(key, plainText);
+        return 0;
+    }
+}
+
+void cipher(string key, string text)
+{
+    int index=0;
+    for (int i=0; i < strlen(text); i++)
+    {
+        if (isupper(text[i]))
+        {
+            index=tolower(text[i])-97;
+            printf("%c", toupper(key[index]));
+        } 
+        else if (islower(text[i]))
+        {
+            index=text[i]-97;
+            printf("%c", tolower(key[index]));
+        }
+        else
+        {
+            printf("%c", text[i]);
+        }
+    }
+    printf("\n");
+}
+
+bool isAllAlpha(string str){
+    for (int i=0; i<strlen(str); i++)
+    {
+        if (!isalpha(str[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+} 
+
+bool noSameAlpha(string str)
+{
+    for (int i=0; i < strlen(str); i++)
+    {
+        for (int j = i+1; j < strlen(str); j++)
+        {
+            if (str[i]==str[j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
