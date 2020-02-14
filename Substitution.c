@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <ctype.h>
 
+/* subsitution.c is a program that encodes a message using a user provided key.
+   26 non-repetitive alphabet letters must be provided at the beginning.
+*/
+
 bool isAllAlpha(string str);
 bool noSameAlpha(string str);
 void cipher(string key, string text);
