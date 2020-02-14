@@ -38,7 +38,6 @@ int main(int argc, string argv[])
     {
         string key = argv[1];
         string plainText = get_string("plaintext: ");
-        
         printf("ciphertext: ");
         cipher(key, plainText);
         return 0;
